@@ -104,6 +104,32 @@ class SortingRobot:
         # Start moving to the left while holding highest number, swap the higher items for lower items, to "reverse-sort"
         # Once we get back to starting index, set light to on.
         # Grab first number (index) item and compare to each index, moving right, swapping higher for lower
+        # while the robot can move right
+        while self.can_move_right():
+            # use self.move_right() this will increase the counter by 1
+            self.move_right()
+            # use swap item to pick up the next indice, drop the current and increase the counter
+            self.swap_item()
+            # While robot can move left
+            while self.can_move_left():
+                # use self.move_left() this will increase the counter by 1
+                self.move_left()
+                # If it is a smaller element, move right and swap
+                if self.compare_item() == 1:
+                    # use self.move_right() this will increase the counter by 1
+                    self.move_right()
+                    # use swap item to pick up the next indice, drop the current and increase the counter
+                    self.swap_item()
+                    # break if the element is the smallest so far.
+                    break
+                # else if robot can't move left
+                elif self.can_move_left() == False:
+                    self.swap_item()
+                    break
+            # as long as the compare items is not None move everything to the right of the list
+            while self.compare_item() != None:
+                self.move_right()
+                self.swap_item()
 
 
 if __name__ == "__main__":
